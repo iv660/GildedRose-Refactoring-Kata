@@ -4,7 +4,7 @@
     "target": "es5",
     "strict": true,
     "noImplicitAny": false,
-    "sourceMap": false,
+    "sourceMap": true,
     "baseUrl": "./",
     "paths": {
       "@/*": [
@@ -14,5 +14,10 @@
   },
   "exclude": [
     "node_modules"
-  ]
+  ],
+  // "include": [
+  //   "app/**/*.ts",
+  //   "test/**/*.ts",
+  //   "typings/**/*.ts"
+  // ]
 }
