@@ -18,58 +18,41 @@ export class GildedRose {
   }
   
   updateQuality() {
-      for (let i = 0; i < this.items.length; i++) {
-        const item = this.items[i];
+    for (let i = 0; i < this.items.length; i++) {
+      const item = this.items[i];
 
-        this.updateItemQuality(item);
-        this.updateItemSellIn(item);
+      this.updateItemQuality(item);
+      this.updateItemSellIn(item);
     }
 
     return this.items;
   }
 
-  private isConventional(item: Item) {
-    if (item.name == 'Aged Brie') {
-      return false;
-    }
-
-    if (item.name == 'Backstage passes to a TAFKAL80ETC concert') {
-      return false;
-    }
-
-    return true;
-  } 
-  
   private updateItemQuality (item: Item) {
-    if (this.isConventional(item)) {
-      if (item.quality > 0) {
-        if (item.name != 'Sulfuras, Hand of Ragnaros') {
-          item.quality = item.quality - 1
-        }
-      }
-    } else {
-      if (item.quality < 50) {
-        item.quality = item.quality + 1
-        if (item.name == 'Backstage passes to a TAFKAL80ETC concert') {
-          if (item.sellIn < 11) {
-            if (item.quality < 50) {
-              item.quality = item.quality + 1
-            }
-          }
-          if (item.sellIn < 6) {
-            if (item.quality < 50) {
-              item.quality = item.quality + 1
-            }
-          }
-        }
-      }
+      switch (item.name) {
+        case 'Sulfuras, Hand of Ragnaros': 
+          this.increaseItemQuality(item);
+          break;
+          
+        case 'Aged Brie':
+          this.increaseItemQuality(item);
+          break;
+  
+        case 'Backstage passes to a TAFKAL80ETC concert':
+          this.increaseBackstagePassItemQality(item)
+          break;
+    
+        default:
+          // this.decreaseItemQuality(item);
+        break;
     }
+
     if (item.sellIn < 0) {
       if (item.name != 'Aged Brie') {
         if (item.name != 'Backstage passes to a TAFKAL80ETC concert') {
           if (item.quality > 0) {
             if (item.name != 'Sulfuras, Hand of Ragnaros') {
-              item.quality = item.quality - 1
+              // item.quality = item.quality - 1
             }
           }
         } else {
@@ -93,5 +76,34 @@ export class GildedRose {
         item.sellIn--;
         break;
     }
+  }
+
+  private increaseItemQuality (item: Item) {
+    if (item.quality < 50) {
+      item.quality = item.quality + 1
+    }
+  }
+
+  private increaseBackstagePassItemQality (item: Item) {
+    this.increaseItemQuality(item);
+    
+    if (item.quality < 50) {
+      if (item.sellIn <= 10) {
+        if (item.quality < 50) {
+          item.quality = item.quality + 1
+        }
+      }
+      if (item.sellIn < 6) {
+        if (item.quality < 50) {
+          item.quality = item.quality + 1
+        }
+      }
+    }
+  }
+
+  private decreaseItemQuality (item: Item) {
+    if (item.quality > 0) {
+            item.quality = item.quality - 1
+          }
   }
 }
