@@ -29,8 +29,8 @@ export class GildedRose {
 
       switch (item.name) {
         case ItemTypeName.AgedBrie:
-          this.decreaseSellIn(item);
           this.increaseQuality(item);
+          this.decreaseSellIn(item);
           if (item.sellIn < 0) {
             this.increaseQuality(item);
           }
@@ -48,20 +48,15 @@ export class GildedRose {
         default:
           this.decreaseQuality(item);
           this.decreaseSellIn(item);
+          if (item.sellIn < 0) {
+            this.decreaseQuality(item);
+          }
           break;
       }
 
       if (item.sellIn < 0) {
-        if (item.name != ItemTypeName.AgedBrie) {
-          if (item.name != ItemTypeName.BackstagePass) {
-            if (item.quality > 0) {
-              if (item.name != ItemTypeName.Sulfuras) {
-                item.quality = item.quality - 1;
-              }
-            }
-          } else {
-            item.quality = item.quality - item.quality;
-          }
+        if (item.name == ItemTypeName.BackstagePass) {
+          item.quality = item.quality - item.quality;
         }
       }
     }
