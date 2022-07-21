@@ -27,9 +27,11 @@ interface ItemOfTypeInterface {
   decreaseQuality(): void;
   dropQuality(): void;
   decreaseSellIn(): void;
+
+  updateQuality(): void;
 }
 
-class ItemOfType implements ItemOfTypeInterface {
+abstract class ItemOfType implements ItemOfTypeInterface {
   constructor(private item: Item) {}
 
   get name(): string {
@@ -67,11 +69,26 @@ class ItemOfType implements ItemOfTypeInterface {
   dropQuality(): void {
     this.item.quality = 0;
   }
+
+  abstract updateQuality(): void;
+}
+
+class DefaultItem extends ItemOfType {
+  updateQuality(): void {
+    this.decreaseQuality();
+    this.decreaseSellIn();
+    if (this.isOutdated) {
+      this.decreaseQuality();
+    }
+}
 }
 
 class ItemOfTypeFactory {
   create(item: Item): ItemOfTypeInterface {
-    return new ItemOfType(item);
+    switch (item.name) {
+      default:
+        return new DefaultItem(item);
+    }
   }
 }
 
@@ -120,11 +137,7 @@ export class GildedRose {
           break;
 
         default:
-          itemOfType.decreaseQuality();
-          itemOfType.decreaseSellIn();
-          if (itemOfType.isOutdated) {
-            itemOfType.decreaseQuality();
-          }
+          itemOfType.updateQuality();
           break;
       }
     }
