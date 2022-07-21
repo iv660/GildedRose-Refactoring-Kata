@@ -17,7 +17,7 @@ export class GildedRose {
     this.items = items;
   }
 
-  updateQuality(): void {
+  updateQuality(): Item[] {
     for (let i = 0; i < this.items.length; i++) {
       const item = this.items[i];
       if (this.isConventional(item)) {
