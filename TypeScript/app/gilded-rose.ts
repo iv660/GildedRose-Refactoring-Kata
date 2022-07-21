@@ -1,3 +1,9 @@
+enum ItemTypeName {
+  Sulfuras = 'Sulfuras, Hand of Ragnaros',
+  BackstagePass = 'Backstage passes to a TAFKAL80ETC concert',
+  AgedBrie = 'Aged Brie'
+};
+
 export class Item {
   name: string;
   sellIn: number;
@@ -20,16 +26,17 @@ export class GildedRose {
   updateQuality(): Item[] {
     for (let i = 0; i < this.items.length; i++) {
       const item = this.items[i];
+
       if (this.isConventional(item)) {
         if (item.quality > 0) {
-          if (item.name != 'Sulfuras, Hand of Ragnaros') {
+          if (item.name != ItemTypeName.Sulfuras) {
             item.quality = item.quality - 1
           }
         }
       } else {
         if (item.quality < 50) {
           item.quality = item.quality + 1
-          if (item.name == 'Backstage passes to a TAFKAL80ETC concert') {
+          if (item.name == ItemTypeName.BackstagePass) {
             if (item.sellIn < 11) {
               if (item.quality < 50) {
                 item.quality = item.quality + 1
@@ -48,9 +55,9 @@ export class GildedRose {
       }
       if (item.sellIn < 0) {
         if (item.name != 'Aged Brie') {
-          if (item.name != 'Backstage passes to a TAFKAL80ETC concert') {
+          if (item.name != ItemTypeName.BackstagePass) {
             if (item.quality > 0) {
-              if (item.name != 'Sulfuras, Hand of Ragnaros') {
+              if (item.name != ItemTypeName.Sulfuras) {
                 item.quality = item.quality - 1
               }
             }
@@ -69,11 +76,11 @@ export class GildedRose {
   }
 
   private isConventional(item: Item): boolean {
-    if (item.name == 'Aged Brie') {
+    if (item.name == ItemTypeName.AgedBrie) {
       return false;
     }
 
-    if (item.name == 'Backstage passes to a TAFKAL80ETC concert') {
+    if (item.name == ItemTypeName.BackstagePass) {
       return false;
     }
 
