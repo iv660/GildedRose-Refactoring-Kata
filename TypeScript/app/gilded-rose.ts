@@ -29,8 +29,11 @@ export class GildedRose {
 
       switch (item.name) {
         case ItemTypeName.AgedBrie:
-          this.increaseQuality(item);
           this.decreaseSellIn(item);
+          this.increaseQuality(item);
+          if (item.sellIn < 0) {
+            this.increaseQuality(item);
+          }
           break;
 
         case ItemTypeName.BackstagePass:
@@ -59,8 +62,6 @@ export class GildedRose {
           } else {
             item.quality = item.quality - item.quality;
           }
-        } else {
-          this.increaseQuality(item);
         }
       }
     }
