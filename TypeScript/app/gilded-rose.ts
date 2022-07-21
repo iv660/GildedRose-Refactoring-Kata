@@ -31,7 +31,7 @@ export class GildedRose {
         case ItemTypeName.AgedBrie:
           this.increaseQuality(item);
           this.decreaseSellIn(item);
-          if (item.sellIn < 0) {
+          if (this.isOutdatedItem(item)) {
             this.increaseQuality(item);
           }
           break;
@@ -39,6 +39,9 @@ export class GildedRose {
         case ItemTypeName.BackstagePass:
           this.increaseBackstagePassQuality(item);
           this.decreaseSellIn(item);
+          if (this.isOutdatedItem(item)) {
+
+          }
           break;
 
         case ItemTypeName.Sulfuras:
@@ -48,13 +51,13 @@ export class GildedRose {
         default:
           this.decreaseQuality(item);
           this.decreaseSellIn(item);
-          if (item.sellIn < 0) {
+          if (this.isOutdatedItem(item)) {
             this.decreaseQuality(item);
           }
           break;
       }
 
-      if (item.sellIn < 0) {
+      if (this.isOutdatedItem(item)) {
         if (item.name == ItemTypeName.BackstagePass) {
           item.quality = item.quality - item.quality;
         }
@@ -74,13 +77,13 @@ export class GildedRose {
     item.sellIn--;
   }
 
-  private increaseQuality(item: Item) {
+  private increaseQuality(item: Item): void {
     if (item.quality < 50) {
       item.quality = item.quality + 1;
     }
   }
 
-  private increaseBackstagePassQuality(item: Item) {
+  private increaseBackstagePassQuality(item: Item): void {
     this.increaseQuality(item);
 
     if (item.sellIn < 11) {
@@ -90,5 +93,13 @@ export class GildedRose {
     if (item.sellIn < 6) {
       this.increaseQuality(item);
     }
+  }
+
+  private isOutdatedItem(item: Item): boolean {
+    if (item.sellIn < 0) {
+      return true;
+    }
+
+    return false;
   }
 }
