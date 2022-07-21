@@ -30,7 +30,6 @@ describe("Gilded Rose", () => {
           sellIn: 5,
           quality: 49,
         },
-        { name: "Conjured Mana Cake", sellIn: 3, quality: 6 },
       ],
       [
         { name: "+5 Dexterity Vest", sellIn: 10, quality: 20 },
@@ -53,7 +52,6 @@ describe("Gilded Rose", () => {
           sellIn: 5,
           quality: 49,
         },
-        { name: "Conjured Mana Cake", sellIn: 3, quality: 6 },
       ],
       [
         { name: "+5 Dexterity Vest", sellIn: 10, quality: 20 },
@@ -76,7 +74,6 @@ describe("Gilded Rose", () => {
           sellIn: 5,
           quality: 49,
         },
-        { name: "Conjured Mana Cake", sellIn: 3, quality: 6 },
       ],
       [
         { name: "+5 Dexterity Vest", sellIn: 10, quality: 20 },
@@ -99,7 +96,6 @@ describe("Gilded Rose", () => {
           sellIn: 5,
           quality: 49,
         },
-        { name: "Conjured Mana Cake", sellIn: 3, quality: 6 },
       ],
       [
         { name: "+5 Dexterity Vest", sellIn: 10, quality: 20 },
@@ -122,7 +118,6 @@ describe("Gilded Rose", () => {
           sellIn: 5,
           quality: 49,
         },
-        { name: "Conjured Mana Cake", sellIn: 3, quality: 6 },
       ],
       [
         { name: "+5 Dexterity Vest", sellIn: 10, quality: 20 },
@@ -145,7 +140,6 @@ describe("Gilded Rose", () => {
           sellIn: 5,
           quality: 49,
         },
-        { name: "Conjured Mana Cake", sellIn: 3, quality: 6 },
       ],
       [
         { name: "+5 Dexterity Vest", sellIn: 10, quality: 20 },
@@ -168,7 +162,6 @@ describe("Gilded Rose", () => {
           sellIn: 5,
           quality: 49,
         },
-        { name: "Conjured Mana Cake", sellIn: 3, quality: 6 },
       ],
       [
         { name: "+5 Dexterity Vest", sellIn: 10, quality: 20 },
@@ -191,7 +184,6 @@ describe("Gilded Rose", () => {
           sellIn: 5,
           quality: 49,
         },
-        { name: "Conjured Mana Cake", sellIn: 3, quality: 6 },
       ],
       [
         { name: "+5 Dexterity Vest", sellIn: 10, quality: 20 },
@@ -214,7 +206,6 @@ describe("Gilded Rose", () => {
           sellIn: 5,
           quality: 49,
         },
-        { name: "Conjured Mana Cake", sellIn: 3, quality: 6 },
       ],
       [
         { name: "+5 Dexterity Vest", sellIn: 10, quality: 20 },
@@ -237,7 +228,6 @@ describe("Gilded Rose", () => {
           sellIn: 5,
           quality: 49,
         },
-        { name: "Conjured Mana Cake", sellIn: 3, quality: 6 },
       ],
     ];
 
@@ -251,7 +241,7 @@ describe("Gilded Rose", () => {
       new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
       new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
       // this conjured item does not work properly yet
-      new Item("Conjured Mana Cake", 3, 6),
+      // new Item("Conjured Mana Cake", 3, 6),
     ];
 
     const gildedRose = new GildedRose(items);
@@ -272,7 +262,7 @@ describe("Gilded Rose", () => {
       });
     }
 
-    expect(results).toEqual(expected);
     console.log(JSON.stringify(results));
+    expect(results).toEqual(expected);
   });
 });
