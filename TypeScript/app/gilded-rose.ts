@@ -42,8 +42,7 @@ export class GildedRose {
           break;
       }
 
-      if (this.isConventional(item)) {
-      } else {
+      if (false === this.isConventional(item)) {
         if (item.name == ItemTypeName.BackstagePass) {
           this.increaseBackstagePassQuality(item);
         } else {
