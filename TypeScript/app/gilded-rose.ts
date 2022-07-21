@@ -16,7 +16,18 @@ export class Item {
   }
 }
 
-class ItemOfType {
+interface ItemOfTypeInterface {
+  name: string;
+  sellIn: number;
+  isOutdated: boolean;
+
+  increaseQuality(): void;
+  decreaseQuality(): void;
+  dropQuality(): void;
+  decreaseSellIn(): void;
+}
+
+class ItemOfType implements ItemOfTypeInterface {
   constructor(private item: Item) {}
 
   get name(): string {
@@ -66,7 +77,7 @@ export class GildedRose {
   updateQuality(): Item[] {
     for (let i = 0; i < this.items.length; i++) {
       const item = this.items[i];
-      const itemOfType = new ItemOfType(item);
+      const itemOfType: ItemOfTypeInterface = new ItemOfType(item);
 
       switch (itemOfType.name) {
         case ItemTypeName.AgedBrie:
