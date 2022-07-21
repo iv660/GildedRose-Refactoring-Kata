@@ -80,12 +80,24 @@ class DefaultItem extends ItemOfType {
     if (this.isOutdated) {
       this.decreaseQuality();
     }
+  }
 }
+
+class AgedBrieItem extends ItemOfType {
+  updateQuality(): void {
+    this.increaseQuality();
+    this.decreaseSellIn();
+    if (this.isOutdated) {
+      this.increaseQuality();
+    }
+  }
 }
 
 class ItemOfTypeFactory {
   create(item: Item): ItemOfTypeInterface {
     switch (item.name) {
+      case ItemTypeName.AgedBrie: 
+        return new AgedBrieItem(item);
       default:
         return new DefaultItem(item);
     }
@@ -107,11 +119,7 @@ export class GildedRose {
 
       switch (itemOfType.name) {
         case ItemTypeName.AgedBrie:
-          itemOfType.increaseQuality();
-          itemOfType.decreaseSellIn();
-          if (itemOfType.isOutdated) {
-            itemOfType.increaseQuality();
-          }
+          itemOfType.updateQuality();
           break;
 
         case ItemTypeName.BackstagePass:
