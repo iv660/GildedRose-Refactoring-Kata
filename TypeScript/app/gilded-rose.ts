@@ -40,7 +40,7 @@ export class GildedRose {
           this.increaseBackstagePassQuality(item);
           this.decreaseSellIn(item);
           if (this.isOutdatedItem(item)) {
-            item.quality = 0;
+            this.zeroQualityOut(item);
           }
           break;
 
@@ -95,5 +95,9 @@ export class GildedRose {
     }
 
     return false;
+  }
+
+  private zeroQualityOut(item: Item): void {
+    item.quality = 0;
   }
 }
