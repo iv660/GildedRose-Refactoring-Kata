@@ -23,48 +23,52 @@ export class GildedRose {
     this.items = items;
   }
   
+  increaseQuality (item: Item) {
+    if (item.quality < 50) {
+      item.quality = item.quality + 1;
+    }
+  }
   updateQuality(): Item[] {
-      for (let i = 0; i < this.items.length; i++) {
-        const item = this.items[i];
+        for (let i = 0; i < this.items.length; i++) {
+          const item = this.items[i];
+    
+          switch (item.name) {
+            case ItemTypeName.AgedBrie:
+              break;
   
-        switch (item.name) {
-          case ItemTypeName.AgedBrie:
-            break;
-          case ItemTypeName.BackstagePass:
-            break;
-          case ItemTypeName.Sulfuras:
-            break;
-          default:
-            this.decreaseQuality(item);
-            break;
-        }
-  
-      if (this.isConventional(item)) {
-          
-      } else {
+            case ItemTypeName.BackstagePass:
+              break;
+              
+            case ItemTypeName.Sulfuras:
+              break;
+            
+            default:
+              this.decreaseQuality(item);
+              break;
+          }
+    
+        if (this.isConventional(item)) {
+            
+        } else {
+          this.increaseQuality(item);
         if (item.quality < 50) {
-          item.quality = item.quality + 1;
           if (item.name == ItemTypeName.BackstagePass) {
             if (item.sellIn < 11) {
-              if (item.quality < 50) {
-                item.quality = item.quality + 1;
-              }
+              this.increaseQuality(item);
             }
             if (item.sellIn < 6) {
-              if (item.quality < 50) {
-                item.quality = item.quality + 1;
-              }
+              this.increaseQuality(item)
             }
           }
         }
       }
 
-      if (item.name != "Sulfuras, Hand of Ragnaros") {
+      if (item.name != ItemTypeName.Sulfuras) {
         this.decreaseSellIn(item);
       }
 
       if (item.sellIn < 0) {
-        if (item.name != "Aged Brie") {
+        if (item.name != ItemTypeName.AgedBrie) {
           if (item.name != ItemTypeName.BackstagePass) {
             if (item.quality > 0) {
               if (item.name != ItemTypeName.Sulfuras) {
@@ -75,9 +79,7 @@ export class GildedRose {
             item.quality = item.quality - item.quality;
           }
         } else {
-          if (item.quality < 50) {
-            item.quality = item.quality + 1;
-          }
+          this.increaseQuality(item);
         }
       }
     }
