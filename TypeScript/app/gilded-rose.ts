@@ -22,12 +22,7 @@ export class GildedRose {
   constructor(items = [] as Array<Item>) {
     this.items = items;
   }
-  
-  increaseQuality (item: Item) {
-    if (item.quality < 50) {
-      item.quality = item.quality + 1;
-    }
-  }
+
   updateQuality(): Item[] {
         for (let i = 0; i < this.items.length; i++) {
           const item = this.items[i];
@@ -111,5 +106,11 @@ export class GildedRose {
 
     private decreaseSellIn(item: Item): void {
       item.sellIn--;
+    }
+  
+    private increaseQuality (item: Item) {
+      if (item.quality < 50) {
+        item.quality = item.quality + 1;
+      }
     }
 }
