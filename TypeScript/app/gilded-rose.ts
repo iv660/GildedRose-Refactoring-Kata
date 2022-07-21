@@ -22,7 +22,7 @@ export class GildedRose {
       const item = this.items[i];
 
       // Update item quality
-      if (this._isConventional(item)) {
+      if (this.isConventional(item)) {
         if (item.quality > 0) {
           if (item.name != 'Sulfuras, Hand of Ragnaros') {
             item.quality = item.quality - 1
@@ -72,7 +72,7 @@ export class GildedRose {
     return this.items;
   }
 
-  _isConventional(item: Item) {
+  private isConventional(item: Item) {
     if (item.name == 'Aged Brie') {
       return false;
     }
@@ -83,4 +83,6 @@ export class GildedRose {
 
     return true;
   } 
+
+  
 }
