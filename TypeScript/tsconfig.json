@@ -14,5 +14,10 @@
   },
   "exclude": [
     "node_modules"
+  ], 
+  "include": [
+    "typings/**/*.ts", 
+    "test/**/*.ts",
+    "app/**/*.ts"
   ]
 }

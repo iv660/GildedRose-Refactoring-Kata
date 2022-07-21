@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { Item, GildedRose } from '@/gilded-rose';
-
-// require('approvals').mocha();
+import {mocha} from 'approvals';
+import {Context} from 'mocha';
 
 describe('Gilded Rose', () => {
   it('should foo', () => {
@@ -14,8 +14,9 @@ describe('Gilded Rose', () => {
 
 
 describe('When running some tests', function () {
-  it('should be able to use Approvals', function () {
+  mocha(__dirname);
+  it('should be able to use Approvals', function (this: Context) {
     var data = "Hello World!";
-    // this.verify(data);  // or this.verifyAsJSON(data)
+    this.verify(data);  // or this.verifyAsJSON(data)
   });
 });
