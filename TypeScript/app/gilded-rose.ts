@@ -69,22 +69,6 @@ export class GildedRose {
     return this.items;
   }
 
-  private isConventional(item: Item): boolean {
-    if (item.name == ItemTypeName.AgedBrie) {
-      return false;
-    }
-
-    if (item.name == ItemTypeName.BackstagePass) {
-      return false;
-    }
-
-    if (item.name == ItemTypeName.Sulfuras) {
-      return false;
-    }
-
-    return true;
-  }
-
   private decreaseQuality(item: Item): void {
     if (item.quality > 0) {
       item.quality = item.quality - 1;
