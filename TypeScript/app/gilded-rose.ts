@@ -92,12 +92,6 @@ export class GildedRose {
     return this.items;
   }
 
-  private decreaseQuality(item: Item): void {
-    if (item.quality > 0) {
-      item.quality = item.quality - 1;
-    }
-  }
-
   private decreaseSellIn(item: Item): void {
     item.sellIn--;
   }
