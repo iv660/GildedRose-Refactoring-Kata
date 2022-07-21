@@ -20,7 +20,7 @@ export class GildedRose {
   updateQuality() {
       for (let i = 0; i < this.items.length; i++) {
         const item = this.items[i];
-        
+
         this.updateItemQuality(item);
         this.updateItemSellIn(item);
     }
@@ -84,8 +84,13 @@ export class GildedRose {
   }
 
   private updateItemSellIn (item: Item) {
-    if (item.name != 'Sulfuras, Hand of Ragnaros') {
-          item.sellIn = item.sellIn - 1;
-        }
+    switch (item.name) {
+      case 'Aged Brie':
+      case 'Backstage passes to a TAFKAL80ETC concert':
+        item.sellIn--;
+        break;
+      case 'Sulfuras, Hand of Ragnaros':
+        break;
+    }
   }
 }
