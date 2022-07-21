@@ -23,6 +23,10 @@ class ItemOfType {
     return this.item.name;
   }
 
+  get sellIn(): number {
+    return this.item.sellIn;
+  }
+
   get isOutdated(): boolean {
     if (this.item.sellIn < 0) {
       return true;
@@ -76,11 +80,11 @@ export class GildedRose {
         case ItemTypeName.BackstagePass:
           itemOfType.increaseQuality();
 
-          if (item.sellIn < 11) {
+          if (itemOfType.sellIn < 11) {
             itemOfType.increaseQuality();
           }
       
-          if (item.sellIn < 6) {
+          if (itemOfType.sellIn < 6) {
             itemOfType.increaseQuality();
           }
 
