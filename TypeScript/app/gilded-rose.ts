@@ -11,21 +11,12 @@ export class Item {
 }
 
 interface ItemOfTypeInterface {
-  name: string;
-  sellIn: number;
-  isOutdated: boolean;
-
-  increaseQuality(): void;
-  decreaseQuality(): void;
-  dropQuality(): void;
-  decreaseSellIn(): void;
-
   updateQuality(): void;
 }
 
-abstract class ItemOfType implements ItemOfTypeInterface {
+class ItemHelper {
   constructor(private item: Item) {}
-
+  
   get name(): string {
     return this.item.name;
   }
@@ -61,65 +52,88 @@ abstract class ItemOfType implements ItemOfTypeInterface {
   dropQuality(): void {
     this.item.quality = 0;
   }
-
-  abstract updateQuality(): void;
 }
 
-class DefaultItem extends ItemOfType {
+class DefaultItem implements ItemOfTypeInterface {
+  private helper: ItemHelper;
+  constructor(item: Item) {
+    this.helper = new ItemHelper(item);
+  }
+
   updateQuality(): void {
-    this.decreaseQuality();
-    this.decreaseSellIn();
-    if (this.isOutdated) {
-      this.decreaseQuality();
+    this.helper.decreaseQuality();
+    this.helper.decreaseSellIn();
+    if (this.helper.isOutdated) {
+      this.helper.decreaseQuality();
     }
   }
 }
 
-class ConjuredItem extends ItemOfType {
+class ConjuredItem implements ItemOfTypeInterface {
+  private helper: ItemHelper;
+  constructor(item: Item) {
+    this.helper = new ItemHelper(item);
+  }
+
   updateQuality(): void {
-    this.decreaseQuality();
-    this.decreaseQuality();
-    this.decreaseSellIn();
-    if (this.isOutdated) {
-      this.decreaseQuality();
-      this.decreaseQuality();
+    this.helper.decreaseQuality();
+    this.helper.decreaseQuality();
+    this.helper.decreaseSellIn();
+    if (this.helper.isOutdated) {
+      this.helper.decreaseQuality();
+      this.helper.decreaseQuality();
     }
   }
 }
 
-class AgedBrieItem extends ItemOfType {
+class AgedBrieItem implements ItemOfTypeInterface {
+  private helper: ItemHelper;
+  constructor(item: Item) {
+    this.helper = new ItemHelper(item);
+  }
+
   updateQuality(): void {
-    this.increaseQuality();
-    this.decreaseSellIn();
-    if (this.isOutdated) {
-      this.increaseQuality();
+    this.helper.increaseQuality();
+    this.helper.decreaseSellIn();
+    if (this.helper.isOutdated) {
+      this.helper.increaseQuality();
     }
   }
 }
 
-class BackstagePassItem extends ItemOfType {
+class BackstagePassItem implements ItemOfTypeInterface {
+  private helper: ItemHelper;
+  constructor(item: Item) {
+    this.helper = new ItemHelper(item);
+  }
+
   updateQuality(): void {
-    this.increaseQuality();
+    this.helper.increaseQuality();
 
-    if (this.sellIn < 11) {
-      this.increaseQuality();
+    if (this.helper.sellIn < 11) {
+      this.helper.increaseQuality();
     }
 
-    if (this.sellIn < 6) {
-      this.increaseQuality();
+    if (this.helper.sellIn < 6) {
+      this.helper.increaseQuality();
     }
 
-    this.decreaseSellIn();
+    this.helper.decreaseSellIn();
 
-    if (this.isOutdated) {
-      this.dropQuality();
+    if (this.helper.isOutdated) {
+      this.helper.dropQuality();
     }
   }
 }
 
-class SulfurasItem extends ItemOfType {
+class SulfurasItem implements ItemOfTypeInterface {
+  private helper: ItemHelper;
+  constructor(item: Item) {
+    this.helper = new ItemHelper(item);
+  }
+
   updateQuality(): void {
-    this.increaseQuality();
+    this.helper.increaseQuality();
   }
 }
 
