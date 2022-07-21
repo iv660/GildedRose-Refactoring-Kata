@@ -17,7 +17,7 @@ export class GildedRose {
     this.items = items;
   }
 
-  updateQuality() {
+  updateQuality(): void {
     for (let i = 0; i < this.items.length; i++) {
       const item = this.items[i];
       if (this.isConventional(item)) {
@@ -68,7 +68,7 @@ export class GildedRose {
     return this.items;
   }
 
-  private isConventional(item: Item) {
+  private isConventional(item: Item): boolean {
     if (item.name == 'Aged Brie') {
       return false;
     }
