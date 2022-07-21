@@ -46,6 +46,10 @@ class ItemOfType {
   decreaseSellIn(): void {
     this.item.sellIn--;
   }
+
+  dropQuality(): void {
+    this.item.quality = 0;
+  }
 }
 
 export class GildedRose {
@@ -83,7 +87,7 @@ export class GildedRose {
           itemOfType.decreaseSellIn();
 
           if (itemOfType.isOutdated) {
-            this.zeroQualityOut(item);
+            itemOfType.dropQuality();
           }
           break;
 
@@ -102,9 +106,5 @@ export class GildedRose {
     }
 
     return this.items;
-  }
-
-  private zeroQualityOut(item: Item): void {
-    item.quality = 0;
   }
 }
