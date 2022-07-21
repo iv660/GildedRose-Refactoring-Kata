@@ -28,6 +28,12 @@ class ItemOfType {
       this.item.quality++;
     }
   }
+
+  decreaseQuality(): void {
+    if (this.item.quality > 0) {
+      this.item.quality--;
+    }
+  }
 }
 
 export class GildedRose {
@@ -74,10 +80,10 @@ export class GildedRose {
           break;
 
         default:
-          this.decreaseQuality(item);
+          itemOfType.decreaseQuality();
           this.decreaseSellIn(item);
           if (this.isOutdatedItem(item)) {
-            this.decreaseQuality(item);
+            itemOfType.decreaseQuality();
           }
           break;
       }
