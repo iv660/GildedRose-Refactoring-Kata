@@ -16,6 +16,14 @@ export class Item {
   }
 }
 
+class ItemOfType {
+  constructor(private item: Item) {}
+
+  get name(): string {
+    return this.item.name;
+  }
+}
+
 export class GildedRose {
   items: Array<Item>;
 
@@ -26,8 +34,9 @@ export class GildedRose {
   updateQuality(): Item[] {
     for (let i = 0; i < this.items.length; i++) {
       const item = this.items[i];
+      const itemOfType = new ItemOfType(item);
 
-      switch (item.name) {
+      switch (itemOfType.name) {
         case ItemTypeName.AgedBrie:
           this.increaseQuality(item);
           this.decreaseSellIn(item);
