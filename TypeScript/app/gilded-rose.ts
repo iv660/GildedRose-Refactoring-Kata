@@ -27,6 +27,17 @@ export class GildedRose {
     for (let i = 0; i < this.items.length; i++) {
       const item = this.items[i];
 
+      switch (item.name) {
+        case ItemTypeName.AgedBrie:
+          break;
+        case ItemTypeName.BackstagePass:
+          break;
+        case ItemTypeName.Sulfuras:
+          break;
+        default:
+          break;
+      }
+
       if (this.isConventional(item)) {
         if (item.quality > 0) {
           item.quality = item.quality - 1
