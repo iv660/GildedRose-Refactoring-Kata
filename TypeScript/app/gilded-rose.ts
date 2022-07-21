@@ -1,5 +1,3 @@
-import { create } from "domain";
-
 enum ItemTypeName {
   Sulfuras = "Sulfuras, Hand of Ragnaros",
   BackstagePass = "Backstage passes to a TAFKAL80ETC concert",
