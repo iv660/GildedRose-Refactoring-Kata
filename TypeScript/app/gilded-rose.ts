@@ -76,8 +76,7 @@ export class GildedRose {
 
   updateQuality(): Item[] {
     for (let i = 0; i < this.items.length; i++) {
-      const item = this.items[i];
-      const itemOfType: ItemOfTypeInterface = new ItemOfType(item);
+      const itemOfType: ItemOfTypeInterface = new ItemOfType(this.items[i]);
 
       switch (itemOfType.name) {
         case ItemTypeName.AgedBrie:
