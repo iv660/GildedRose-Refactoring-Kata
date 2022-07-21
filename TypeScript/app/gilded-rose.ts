@@ -22,6 +22,12 @@ class ItemOfType {
   get name(): string {
     return this.item.name;
   }
+
+  increaseQuality(): void {
+    if (this.item.quality < 50) {
+      this.item.quality++;
+    }
+  }
 }
 
 export class GildedRose {
@@ -38,23 +44,33 @@ export class GildedRose {
 
       switch (itemOfType.name) {
         case ItemTypeName.AgedBrie:
-          this.increaseQuality(item);
+          itemOfType.increaseQuality();
           this.decreaseSellIn(item);
           if (this.isOutdatedItem(item)) {
-            this.increaseQuality(item);
+            itemOfType.increaseQuality();
           }
           break;
 
         case ItemTypeName.BackstagePass:
-          this.increaseBackstagePassQuality(item);
+          itemOfType.increaseQuality();
+
+          if (item.sellIn < 11) {
+            itemOfType.increaseQuality();
+          }
+      
+          if (item.sellIn < 6) {
+            itemOfType.increaseQuality();
+          }
+
           this.decreaseSellIn(item);
+
           if (this.isOutdatedItem(item)) {
             this.zeroQualityOut(item);
           }
           break;
 
         case ItemTypeName.Sulfuras:
-          this.increaseQuality(item);
+          itemOfType.increaseQuality();
           break;
 
         default:
@@ -78,24 +94,6 @@ export class GildedRose {
 
   private decreaseSellIn(item: Item): void {
     item.sellIn--;
-  }
-
-  private increaseQuality(item: Item): void {
-    if (item.quality < 50) {
-      item.quality = item.quality + 1;
-    }
-  }
-
-  private increaseBackstagePassQuality(item: Item): void {
-    this.increaseQuality(item);
-
-    if (item.sellIn < 11) {
-      this.increaseQuality(item);
-    }
-
-    if (item.sellIn < 6) {
-      this.increaseQuality(item);
-    }
   }
 
   private isOutdatedItem(item: Item): boolean {
