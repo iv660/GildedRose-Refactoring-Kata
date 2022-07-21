@@ -24,37 +24,30 @@ export class GildedRose {
   }
 
   updateQuality(): Item[] {
-        for (let i = 0; i < this.items.length; i++) {
-          const item = this.items[i];
-    
-          switch (item.name) {
-            case ItemTypeName.AgedBrie:
-              break;
-  
-            case ItemTypeName.BackstagePass:
-              break;
-              
-            case ItemTypeName.Sulfuras:
-              break;
-            
-            default:
-              this.decreaseQuality(item);
-              break;
-          }
-    
-        if (this.isConventional(item)) {
-            
+    for (let i = 0; i < this.items.length; i++) {
+      const item = this.items[i];
+
+      switch (item.name) {
+        case ItemTypeName.AgedBrie:
+          break;
+
+        case ItemTypeName.BackstagePass:
+          break;
+
+        case ItemTypeName.Sulfuras:
+          break;
+
+        default:
+          this.decreaseQuality(item);
+          break;
+      }
+
+      if (this.isConventional(item)) {
+      } else {
+        if (item.name == ItemTypeName.BackstagePass) {
+          this.increaseBackstagePassQuality(item);
         } else {
           this.increaseQuality(item);
-        if (item.quality < 50) {
-          if (item.name == ItemTypeName.BackstagePass) {
-            if (item.sellIn < 11) {
-              this.increaseQuality(item);
-            }
-            if (item.sellIn < 6) {
-              this.increaseQuality(item)
-            }
-          }
         }
       }
 
@@ -86,31 +79,43 @@ export class GildedRose {
     if (item.name == ItemTypeName.AgedBrie) {
       return false;
     }
-    
+
     if (item.name == ItemTypeName.BackstagePass) {
       return false;
     }
-    
+
     if (item.name == ItemTypeName.Sulfuras) {
       return false;
     }
-    
+
     return true;
   }
-  
-    private decreaseQuality (item: Item): void {
-      if (item.quality > 0) {
-        item.quality = item.quality - 1;
-      }
+
+  private decreaseQuality(item: Item): void {
+    if (item.quality > 0) {
+      item.quality = item.quality - 1;
+    }
+  }
+
+  private decreaseSellIn(item: Item): void {
+    item.sellIn--;
+  }
+
+  private increaseQuality(item: Item) {
+    if (item.quality < 50) {
+      item.quality = item.quality + 1;
+    }
+  }
+
+  private increaseBackstagePassQuality(item: Item) {
+    this.increaseQuality(item);
+
+    if (item.sellIn < 11) {
+      this.increaseQuality(item);
     }
 
-    private decreaseSellIn(item: Item): void {
-      item.sellIn--;
+    if (item.sellIn < 6) {
+      this.increaseQuality(item);
     }
-  
-    private increaseQuality (item: Item) {
-      if (item.quality < 50) {
-        item.quality = item.quality + 1;
-      }
-    }
+  }
 }
