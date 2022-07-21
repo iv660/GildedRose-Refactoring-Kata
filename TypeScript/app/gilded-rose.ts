@@ -10,6 +10,32 @@ export class Item {
   }
 }
 
+export class GildedRose {
+  items: Array<Item>;
+  private factory: ItemOfTypeFactory;
+
+  constructor(items = [] as Array<Item>) {
+    this.items = items;
+    this.factory = new ItemOfTypeFactory();
+  }
+
+  updateQuality(): Item[] {
+    for (let i = 0; i < this.items.length; i++) {
+      const itemOfType: ItemOfTypeInterface = this.createItemOfType(this.items[i]);
+
+      itemOfType.updateQuality();
+    }
+
+    return this.items;
+  }
+
+  private createItemOfType(item: Item): ItemOfTypeInterface {
+    return this.factory.create(item);
+  }
+}
+
+// ========================== PRIVATE MODULE MEMBERS ==========================
+
 interface ItemOfTypeInterface {
   updateQuality(): void;
 }
@@ -154,26 +180,3 @@ class ItemOfTypeFactory {
   }
 }
 
-export class GildedRose {
-  items: Array<Item>;
-  private factory: ItemOfTypeFactory;
-
-  constructor(items = [] as Array<Item>) {
-    this.items = items;
-    this.factory = new ItemOfTypeFactory();
-  }
-
-  updateQuality(): Item[] {
-    for (let i = 0; i < this.items.length; i++) {
-      const itemOfType: ItemOfTypeInterface = this.createItemOfType(this.items[i]);
-
-      itemOfType.updateQuality();
-    }
-
-    return this.items;
-  }
-
-  private createItemOfType(item: Item): ItemOfTypeInterface {
-    return this.factory.create(item);
-  }
-}
