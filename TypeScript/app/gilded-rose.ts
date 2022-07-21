@@ -1,9 +1,3 @@
-enum ItemTypeName {
-  Sulfuras = "Sulfuras, Hand of Ragnaros",
-  BackstagePass = "Backstage passes to a TAFKAL80ETC concert",
-  AgedBrie = "Aged Brie",
-}
-
 export class Item {
   name: string;
   sellIn: number;
@@ -81,6 +75,18 @@ class DefaultItem extends ItemOfType {
   }
 }
 
+class ConjuredItem extends ItemOfType {
+  updateQuality(): void {
+    this.decreaseQuality();
+    this.decreaseQuality();
+    this.decreaseSellIn();
+    if (this.isOutdated) {
+      this.decreaseQuality();
+      this.decreaseQuality();
+    }
+  }
+}
+
 class AgedBrieItem extends ItemOfType {
   updateQuality(): void {
     this.increaseQuality();
@@ -120,12 +126,14 @@ class SulfurasItem extends ItemOfType {
 class ItemOfTypeFactory {
   create(item: Item): ItemOfTypeInterface {
     switch (item.name) {
-      case ItemTypeName.AgedBrie: 
+      case "Aged Brie": 
         return new AgedBrieItem(item);
-      case ItemTypeName.BackstagePass:
+      case "Backstage passes to a TAFKAL80ETC concert":
         return new BackstagePassItem(item);
-      case ItemTypeName.Sulfuras:
+      case "Sulfuras, Hand of Ragnaros":
         return new SulfurasItem(item);
+      case "Conjured Mana Cake":
+        return new ConjuredItem(item);
       default:
         return new DefaultItem(item);
     }

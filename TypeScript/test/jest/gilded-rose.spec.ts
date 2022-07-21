@@ -267,5 +267,23 @@ describe("Gilded Rose", () => {
 
     console.log(JSON.stringify(results));
     expect(results).toEqual(expected);
-  })
+  });
+
+  it('should degrade quality of Conjured items twice as fast than normal', () => {
+    const conjuredItem = new Item("Conjured Mana Cake", 3, 10);
+    const items: Item[] = [
+      conjuredItem,
+    ];
+
+    const gildedRose = new GildedRose(items);
+
+    gildedRose.updateQuality();
+    expect(conjuredItem.quality).toBe(8);
+    gildedRose.updateQuality();
+    expect(conjuredItem.quality).toBe(6);
+    gildedRose.updateQuality();
+    expect(conjuredItem.quality).toBe(4);
+    gildedRose.updateQuality();
+    expect(conjuredItem.quality).toBe(0);
+  });
 });
