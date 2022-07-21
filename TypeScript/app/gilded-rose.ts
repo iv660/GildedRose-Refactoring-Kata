@@ -30,10 +30,12 @@ export class GildedRose {
       switch (item.name) {
         case ItemTypeName.AgedBrie:
           this.increaseQuality(item);
+          this.decreaseSellIn(item);
           break;
 
         case ItemTypeName.BackstagePass:
           this.increaseBackstagePassQuality(item);
+          this.decreaseSellIn(item);
           break;
 
         case ItemTypeName.Sulfuras:
@@ -42,11 +44,8 @@ export class GildedRose {
 
         default:
           this.decreaseQuality(item);
+          this.decreaseSellIn(item);
           break;
-      }
-
-      if (item.name != ItemTypeName.Sulfuras) {
-        this.decreaseSellIn(item);
       }
 
       if (item.sellIn < 0) {
