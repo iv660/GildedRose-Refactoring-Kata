@@ -1,8 +1,8 @@
 enum ItemTypeName {
-  Sulfuras = 'Sulfuras, Hand of Ragnaros',
-  BackstagePass = 'Backstage passes to a TAFKAL80ETC concert',
-  AgedBrie = 'Aged Brie'
-};
+  Sulfuras = "Sulfuras, Hand of Ragnaros",
+  BackstagePass = "Backstage passes to a TAFKAL80ETC concert",
+  AgedBrie = "Aged Brie",
+}
 
 export class Item {
   name: string;
@@ -22,60 +22,59 @@ export class GildedRose {
   constructor(items = [] as Array<Item>) {
     this.items = items;
   }
-
+  
   updateQuality(): Item[] {
-    for (let i = 0; i < this.items.length; i++) {
-      const item = this.items[i];
-
-      switch (item.name) {
-        case ItemTypeName.AgedBrie:
-          break;
-        case ItemTypeName.BackstagePass:
-          break;
-        case ItemTypeName.Sulfuras:
-          break;
-        default:
-          break;
-      }
-
-      if (this.isConventional(item)) {
-        if (item.quality > 0) {
-          item.quality = item.quality - 1
+      for (let i = 0; i < this.items.length; i++) {
+        const item = this.items[i];
+  
+        switch (item.name) {
+          case ItemTypeName.AgedBrie:
+            break;
+            case ItemTypeName.BackstagePass:
+              break;
+              case ItemTypeName.Sulfuras:
+                break;
+          default:
+            this.decreaseQuality(item);
+            break;
         }
+  
+        if (this.isConventional(item)) {
+          
       } else {
         if (item.quality < 50) {
-          item.quality = item.quality + 1
+          item.quality = item.quality + 1;
           if (item.name == ItemTypeName.BackstagePass) {
             if (item.sellIn < 11) {
               if (item.quality < 50) {
-                item.quality = item.quality + 1
+                item.quality = item.quality + 1;
               }
             }
             if (item.sellIn < 6) {
               if (item.quality < 50) {
-                item.quality = item.quality + 1
+                item.quality = item.quality + 1;
               }
             }
           }
         }
       }
-      if (item.name != 'Sulfuras, Hand of Ragnaros') {
+      if (item.name != "Sulfuras, Hand of Ragnaros") {
         item.sellIn = item.sellIn - 1;
       }
       if (item.sellIn < 0) {
-        if (item.name != 'Aged Brie') {
+        if (item.name != "Aged Brie") {
           if (item.name != ItemTypeName.BackstagePass) {
             if (item.quality > 0) {
               if (item.name != ItemTypeName.Sulfuras) {
-                item.quality = item.quality - 1
+                item.quality = item.quality - 1;
               }
             }
           } else {
-            item.quality = item.quality - item.quality
+            item.quality = item.quality - item.quality;
           }
         } else {
           if (item.quality < 50) {
-            item.quality = item.quality + 1
+            item.quality = item.quality + 1;
           }
         }
       }
@@ -88,15 +87,21 @@ export class GildedRose {
     if (item.name == ItemTypeName.AgedBrie) {
       return false;
     }
-
+    
     if (item.name == ItemTypeName.BackstagePass) {
       return false;
     }
-
+    
     if (item.name == ItemTypeName.Sulfuras) {
       return false;
     }
-
+    
     return true;
-  } 
+  }
+  
+    private decreaseQuality (item: Item) {
+      if (item.quality > 0) {
+        item.quality = item.quality - 1;
+      }
+    }
 }
