@@ -34,6 +34,10 @@ class ItemOfType {
       this.item.quality--;
     }
   }
+
+  decreaseSellIn(): void {
+    this.item.sellIn--;
+  }
 }
 
 export class GildedRose {
@@ -51,7 +55,7 @@ export class GildedRose {
       switch (itemOfType.name) {
         case ItemTypeName.AgedBrie:
           itemOfType.increaseQuality();
-          this.decreaseSellIn(item);
+          itemOfType.decreaseSellIn();
           if (this.isOutdatedItem(item)) {
             itemOfType.increaseQuality();
           }
@@ -68,7 +72,7 @@ export class GildedRose {
             itemOfType.increaseQuality();
           }
 
-          this.decreaseSellIn(item);
+          itemOfType.decreaseSellIn();
 
           if (this.isOutdatedItem(item)) {
             this.zeroQualityOut(item);
@@ -81,7 +85,7 @@ export class GildedRose {
 
         default:
           itemOfType.decreaseQuality();
-          this.decreaseSellIn(item);
+          itemOfType.decreaseSellIn();
           if (this.isOutdatedItem(item)) {
             itemOfType.decreaseQuality();
           }
@@ -90,10 +94,6 @@ export class GildedRose {
     }
 
     return this.items;
-  }
-
-  private decreaseSellIn(item: Item): void {
-    item.sellIn--;
   }
 
   private isOutdatedItem(item: Item): boolean {
