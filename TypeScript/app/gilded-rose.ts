@@ -113,6 +113,12 @@ class BackstagePassItem extends ItemOfType {
   }
 }
 
+class SulfurasItem extends ItemOfType {
+  updateQuality(): void {
+    this.increaseQuality();
+  }
+}
+
 class ItemOfTypeFactory {
   create(item: Item): ItemOfTypeInterface {
     switch (item.name) {
@@ -120,6 +126,8 @@ class ItemOfTypeFactory {
         return new AgedBrieItem(item);
       case ItemTypeName.BackstagePass:
         return new BackstagePassItem(item);
+      case ItemTypeName.Sulfuras:
+        return new SulfurasItem(item);
       default:
         return new DefaultItem(item);
     }
@@ -139,17 +147,7 @@ export class GildedRose {
     for (let i = 0; i < this.items.length; i++) {
       const itemOfType: ItemOfTypeInterface = this.createItemOfType(this.items[i]);
 
-      switch (itemOfType.name) {
-        case ItemTypeName.AgedBrie:
-        case ItemTypeName.BackstagePass:
-        default:
-          itemOfType.updateQuality();
-          break;
-
-        case ItemTypeName.Sulfuras:
-          itemOfType.increaseQuality();
-          break;
-      }
+      itemOfType.updateQuality();
     }
 
     return this.items;
