@@ -85,11 +85,12 @@ export class GildedRose {
 
   private updateItemSellIn (item: Item) {
     switch (item.name) {
+      case 'Sulfuras, Hand of Ragnaros':
+        break;
       case 'Aged Brie':
       case 'Backstage passes to a TAFKAL80ETC concert':
+      default:
         item.sellIn--;
-        break;
-      case 'Sulfuras, Hand of Ragnaros':
         break;
     }
   }
