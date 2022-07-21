@@ -29,9 +29,7 @@ export class GildedRose {
 
       if (this.isConventional(item)) {
         if (item.quality > 0) {
-          if (item.name != ItemTypeName.Sulfuras) {
-            item.quality = item.quality - 1
-          }
+          item.quality = item.quality - 1
         }
       } else {
         if (item.quality < 50) {
@@ -81,6 +79,10 @@ export class GildedRose {
     }
 
     if (item.name == ItemTypeName.BackstagePass) {
+      return false;
+    }
+
+    if (item.name == ItemTypeName.Sulfuras) {
       return false;
     }
 
