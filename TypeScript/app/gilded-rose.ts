@@ -30,16 +30,16 @@ export class GildedRose {
         switch (item.name) {
           case ItemTypeName.AgedBrie:
             break;
-            case ItemTypeName.BackstagePass:
-              break;
-              case ItemTypeName.Sulfuras:
-                break;
+          case ItemTypeName.BackstagePass:
+            break;
+          case ItemTypeName.Sulfuras:
+            break;
           default:
             this.decreaseQuality(item);
             break;
         }
   
-        if (this.isConventional(item)) {
+      if (this.isConventional(item)) {
           
       } else {
         if (item.quality < 50) {
@@ -58,9 +58,11 @@ export class GildedRose {
           }
         }
       }
+
       if (item.name != "Sulfuras, Hand of Ragnaros") {
-        item.sellIn = item.sellIn - 1;
+        this.decreaseSellIn(item);
       }
+
       if (item.sellIn < 0) {
         if (item.name != "Aged Brie") {
           if (item.name != ItemTypeName.BackstagePass) {
@@ -99,9 +101,13 @@ export class GildedRose {
     return true;
   }
   
-    private decreaseQuality (item: Item) {
+    private decreaseQuality (item: Item): void {
       if (item.quality > 0) {
         item.quality = item.quality - 1;
       }
+    }
+
+    private decreaseSellIn(item: Item): void {
+      item.sellIn--;
     }
 }
