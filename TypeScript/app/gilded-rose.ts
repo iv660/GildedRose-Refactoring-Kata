@@ -1,3 +1,5 @@
+import { create } from "domain";
+
 enum ItemTypeName {
   Sulfuras = "Sulfuras, Hand of Ragnaros",
   BackstagePass = "Backstage passes to a TAFKAL80ETC concert",
@@ -67,16 +69,24 @@ class ItemOfType implements ItemOfTypeInterface {
   }
 }
 
+class ItemOfTypeFactory {
+  create(item: Item): ItemOfTypeInterface {
+    return new ItemOfType(item);
+  }
+}
+
 export class GildedRose {
   items: Array<Item>;
+  private factory: ItemOfTypeFactory;
 
   constructor(items = [] as Array<Item>) {
     this.items = items;
+    this.factory = new ItemOfTypeFactory();
   }
 
   updateQuality(): Item[] {
     for (let i = 0; i < this.items.length; i++) {
-      const itemOfType: ItemOfTypeInterface = new ItemOfType(this.items[i]);
+      const itemOfType: ItemOfTypeInterface = this.createItemOfType(this.items[i]);
 
       switch (itemOfType.name) {
         case ItemTypeName.AgedBrie:
@@ -120,5 +130,9 @@ export class GildedRose {
     }
 
     return this.items;
+  }
+
+  private createItemOfType(item: Item): ItemOfTypeInterface {
+    return this.factory.create(item);
   }
 }
