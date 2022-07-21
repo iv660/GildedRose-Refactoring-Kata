@@ -29,25 +29,20 @@ export class GildedRose {
 
       switch (item.name) {
         case ItemTypeName.AgedBrie:
+          this.increaseQuality(item);
           break;
 
         case ItemTypeName.BackstagePass:
+          this.increaseBackstagePassQuality(item);
           break;
 
         case ItemTypeName.Sulfuras:
+          this.increaseQuality(item);
           break;
 
         default:
           this.decreaseQuality(item);
           break;
-      }
-
-      if (false === this.isConventional(item)) {
-        if (item.name == ItemTypeName.BackstagePass) {
-          this.increaseBackstagePassQuality(item);
-        } else {
-          this.increaseQuality(item);
-        }
       }
 
       if (item.name != ItemTypeName.Sulfuras) {
